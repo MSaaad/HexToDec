@@ -133,7 +133,6 @@ check_function:
         
         sll $s5,$s5,4
         add $s5,$s5,$s3
-        
         addi $s6,$s6,1                #incrementing string pointer by 1 => point next char
         addi $s7,$s7,-1               #decrement by 1
         addi $t3,$t3,-4               #decrement shift amount by 4
