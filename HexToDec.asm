@@ -2,9 +2,10 @@
 .data
     inputstr: .space 9
     str1: .asciiz "\nEnter string in Hexadecimal : "
-    str2: .asciiz "You have entered an invalid hexadecimal string !"
+    str2: .asciiz "\nYou have entered an invalid hexadecimal string !"
     str3: .asciiz "\nThe decimal equivalent is :"
-    str4: .asciiz "\nPress 1 to continue and 0 to exit :"
+    str4: .asciiz "\nPress 1 to continue or any other key to exit:"
+    str5: .asciiz "\nThe program has been terminated! :)"
 
 .text
 
@@ -25,7 +26,8 @@
 # s5 ---------- load argument with decimal number
 # s6 ---------- loading string for loop
 # s7 ---------- initialized with -1th index
-
+.globl main
+.ent main
 main:
     la $a0,str1                  #load argument
     li $v0,4                     #print a string
@@ -93,9 +95,12 @@ repeat:
 
     addi $t1,$0,1
     beq $t0,$t1,main          #press 1 to continue
-    beq $t0,$0,end            #press 0 to exit
     
 end:
+    la $a0,str5                  #load argument --invalid
+    li $v0,4                     #print string
+    syscall
+
     li $v0,10                     #ending logic     
     syscall
 
@@ -107,7 +112,6 @@ invalid:
     syscall
 
     j repeat
-    
 
 .ent check_function
 .globl check_function
@@ -133,6 +137,7 @@ check_function:
         
         sll $s5,$s5,4
         add $s5,$s5,$s3
+        
         addi $s6,$s6,1                #incrementing string pointer by 1 => point next char
         addi $s7,$s7,-1               #decrement by 1
         addi $t3,$t3,-4               #decrement shift amount by 4
